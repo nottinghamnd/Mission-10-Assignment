@@ -20,9 +20,7 @@ function BowlerList () {
         <table>
             <thead>
                 <tr>
-                    <th>First Name</th>
-                    <th>Middle Initial</th>
-                    <th>Last Name</th>
+                    <th>Bowler Name</th>
                     <th>Team Name</th>
                     <th>Address</th>
                     <th>City</th>
@@ -35,10 +33,8 @@ function BowlerList () {
                 {
                     bowlers.map((b) => (
                         <tr key={b.bowlerId}>
-                            <td>{b.bowlerFirstName}</td>
-                            <td>{b.bowlerMiddleInit}</td>
-                            <td>{b.bowlerLastName}</td>
-                            <td>{b.team}</td>
+                            <td>{b.bowlerName}</td>
+                            <td>{b.teamName}</td>
                             <td>{b.bowlerAddress}</td>
                             <td>{b.bowlerCity}</td>
                             <td>{b.bowlerState}</td>

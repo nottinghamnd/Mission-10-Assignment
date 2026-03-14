@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Mission10Assignment.Models;
 
 namespace Mission10Assignment.Controllers
@@ -8,7 +8,7 @@ namespace Mission10Assignment.Controllers
     [ApiController]
     public class BowlerInfoController : ControllerBase
     {
-        private BowlingLeagueContext _context;
+        private readonly BowlingLeagueContext _context;
 
         public BowlerInfoController(BowlingLeagueContext temp)
         {
@@ -16,11 +16,25 @@ namespace Mission10Assignment.Controllers
         }
 
         [HttpGet(Name = "GetBowlerInfo")]
-        public IEnumerable<Bowler> Get()
+        public IActionResult Get()
         {
-            var bowlerList = _context.Bowlers.ToList();
+            var bowlerList = _context.Bowlers
+                .Include(b => b.Team)
+                .Where(b => (b.Team.TeamName == "Marlins" || b.Team.TeamName == "Sharks")) //only selects Marlins and Sharks
+                .Select(b => new BowlerDto
+                {
+                    BowlerId = b.BowlerId,
+                    BowlerName = b.BowlerFirstName + " " + (b.BowlerMiddleInit != null ? b.BowlerMiddleInit + " " : "") + b.BowlerLastName,
+                    BowlerAddress = b.BowlerAddress,
+                    BowlerCity = b.BowlerCity,
+                    BowlerState = b.BowlerState,
+                    BowlerZip = b.BowlerZip,
+                    BowlerPhoneNumber = b.BowlerPhoneNumber,
+                    TeamName = b.Team != null ? b.Team.TeamName : null
+                })
+                .ToList();
 
-            return bowlerList;
+            return Ok(bowlerList);
         }
     }
 }
