@@ -1,0 +1,20 @@
+# Visual Studio / .NET
+.vs/
+**/.vs/
+**/bin/
+**/obj/
+*.user
+*.suo
+
+# Node / frontend
+**/node_modules/
+**/dist/
+**/dist-ssr/
+*.local
+
+# Editor files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.sw?
