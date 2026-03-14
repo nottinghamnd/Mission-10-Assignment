@@ -9,8 +9,8 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-//builder.Services.AddDbContext<BowlingLeagueContext>(options =>
-//    options.UseSqlite(builder.Configuration.GetConnectionString("FoodConnection")));
+builder.Services.AddDbContext<BowlingLeagueContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("BowlerConnection")));
 
 var app = builder.Build();
 
